@@ -1,5 +1,6 @@
 package org.jacksontest;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.Data;
@@ -10,9 +11,9 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class Owner extends User {
     @NonNull
-    protected Date date;
+    protected LocalDate date;
 
-    public Owner(String name, Date date) {
+    public Owner(String name, LocalDate date) {
         super(name);
         this.date = date;
     }
