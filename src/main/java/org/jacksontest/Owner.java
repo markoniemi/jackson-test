@@ -1,19 +1,15 @@
 package org.jacksontest;
 
-import java.time.LocalDate;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
 public class Owner extends User {
-    @NonNull
-    protected LocalDate date;
+    protected Long id;
 
-    public Owner(String name, LocalDate date) {
+    public Owner(String name, Long id) {
         super(name);
-        this.date = date;
+        this.id = id;
     }
 }
