@@ -31,24 +31,29 @@ public class JacksonListTest {
     
     @Test
     public void objectWithList() throws JsonProcessingException {
-        assertEquals("{\"users\":[{\"name\":\"name0\"}]}", writeUsers(new UserWrapper(createUsers(1))));
-        assertEquals(1, parseUsers("{\"users\":[{\"name\":\"name0\"}]}").size());
+        String json="{\"users\":[{\"name\":\"name0\"}]}";
+        UserWrapper userWrapper = new UserWrapper(createUsers(1));
+        assertEquals(json, writeUsers(userWrapper));
+        assertEquals(userWrapper, parseUserWrapper(json));
     }
     @Test
     public void objectWithEmptyList() throws JsonProcessingException {
-        assertEquals("{\"users\":[]}", writeUsers(new UserWrapper(new ArrayList<User>())));
-        assertEquals(0, parseUsers("{\"users\":[]}").size());
-        assertNull(parseUsers("{}"));
+        String json="{\"users\":[]}";
+        UserWrapper userWrapper = new UserWrapper(new ArrayList<User>());
+        assertEquals(json, writeUsers(userWrapper));
+        assertEquals(userWrapper, parseUserWrapper(json));
     }
     @Test
     public void objectWithNullList() throws JsonProcessingException {
-        assertEquals("{\"users\":null}", writeUsers(new UserWrapper(null)));
-        assertNull(parseUsers("{\"users\":null}"));
+        String json="{\"users\":null}";
+        assertEquals(json, writeUsers(new UserWrapper(null)));
+        assertNull(parseUserWrapper(json).getUsers());
+        assertNull(parseUserWrapper("{}").getUsers());
     }
 
-    private List<User> parseUsers(String json) throws JsonMappingException, JsonProcessingException {
+    private UserWrapper parseUserWrapper(String json) throws JsonMappingException, JsonProcessingException {
         UserWrapper userWrapper = jsonMapper.readValue(json, UserWrapper.class);
-        return userWrapper.getUsers();
+        return userWrapper;
     }
 
     private String writeUsers(UserWrapper userWrapper) throws JsonProcessingException {
