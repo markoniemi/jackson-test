@@ -1,7 +1,7 @@
 package org.jacksontest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,8 +13,8 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +29,7 @@ public class JacksonDateTest {
     private LocalDateTime expectedLocalDateTime = LocalDateTime.of(expectedLocalDate, expectedLocalTime);
     private ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(expectedLocalDateTime, ZoneId.of("UTC"));
 
-    @Before
+    @BeforeEach
     public void init() {
         jsonMapper = new ObjectMapper();
         jsonMapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));

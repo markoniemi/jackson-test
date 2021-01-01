@@ -1,13 +1,13 @@
 package org.jacksontest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -22,30 +22,32 @@ public class JacksonListTest {
     private ObjectMapper jsonMapper;
     private XmlMapper xmlMapper;
 
-    @Before
+    @BeforeEach
     public void init() {
         jsonMapper = new ObjectMapper();
         xmlMapper = new XmlMapper();
         xmlMapper.registerModule(new JaxbAnnotationModule());
     }
-    
+
     @Test
     public void objectWithList() throws JsonProcessingException {
-        String json="{\"users\":[{\"name\":\"name0\"}]}";
+        String json = "{\"users\":[{\"name\":\"name0\"}]}";
         UserWrapper userWrapper = new UserWrapper(createUsers(1));
         assertEquals(json, writeUsers(userWrapper));
         assertEquals(userWrapper, parseUserWrapper(json));
     }
+
     @Test
     public void objectWithEmptyList() throws JsonProcessingException {
-        String json="{\"users\":[]}";
+        String json = "{\"users\":[]}";
         UserWrapper userWrapper = new UserWrapper(new ArrayList<User>());
         assertEquals(json, writeUsers(userWrapper));
         assertEquals(userWrapper, parseUserWrapper(json));
     }
+
     @Test
     public void objectWithNullList() throws JsonProcessingException {
-        String json="{\"users\":null}";
+        String json = "{\"users\":null}";
         assertEquals(json, writeUsers(new UserWrapper(null)));
         assertNull(parseUserWrapper(json).getUsers());
         assertNull(parseUserWrapper("{}").getUsers());
@@ -67,7 +69,5 @@ public class JacksonListTest {
         }
         return users;
     }
-
-
 
 }
